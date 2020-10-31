@@ -1,0 +1,12 @@
+summary {
+    width: 80%;
+    margin: 50px;
+}
+
+form{
+    margin: 5px;
+}
+
+input[type=submit]{
+    float: right;
+}
