@@ -1,12 +1,23 @@
-summary {
-    width: 80%;
-    margin: 50px;
+body{
+  overflow-y: scroll;
 }
 
-form{
-    margin: 5px;
+.card:not(section) {
+  margin: 10px;
 }
 
-input[type=submit]{
-    float: right;
+section{
+  margin: 0 auto;
+  width: 80%;
+  min-width: 560px;
+}
+
+.term-title{
+  cursor: pointer;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 }

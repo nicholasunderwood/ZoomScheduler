@@ -1,0 +1,21 @@
+{
+    "name": "zoom-scheduler",
+    "version": "1.0.0",
+    "description": "A minimal Electron application",
+    "main": "./gui/main.js",
+    "scripts": {
+        "start": "electron ."
+    },
+    "repository": "https://github.com/nicholasunderwood/zo",
+    "keywords": [
+        "Zoom"
+    ],
+    "author": "Nicholas Underwood",
+    "license": "CC0-1.0",
+    "devDependencies": {
+        "electron": "^10.1.5"
+    },
+    "dependencies": {
+        "xmldom": "^0.4.0"
+    }
+}

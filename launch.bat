@@ -10,5 +10,4 @@ if defined period (
 pause
 
 
-
-schtasks /create /xml ".\0.xml" /tn "\TASKSCHEDULER-FOLDER-PATH\TASK-INPORT-NAME" /ru "COMPUTER-NAME\USER-NAME"
+@REM schtasks /create /xml ".\0.xml" /tn "\TASKSCHEDULER-FOLDER-PATH\TASK-INPORT-NAME" /ru "COMPUTER-NAME\USER-NAME"

@@ -20,4 +20,4 @@ pswds = [None, None, None, None, "541104", None, None, None]
 webbrowser.open(links[period])
 
 if(pswds[period]):
-    pd.DataFrame([pswds[period]]).to_clipboard(index=False,header=False)
+    pd.DataFrame([pswds[period]]).to_clipboard(index=False,header=False) 
