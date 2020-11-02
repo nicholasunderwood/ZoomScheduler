@@ -1,17 +1,19 @@
 // const { ipcRenderer } = require('electron')
+console.log('load save')
 
 $('#save').on('click', () => {
-    console.log('save')
+    console.log('save');
+    const taskInfo = []
     $('.task').each( (i, form) => {
-        if(i != 1) return;
-        form = $(form)
+        form = $(form);
 
         let enabled = form.find('.enable-task').prop('checked');
         
         let time = form.find('.start-time').val();
-        time = (eval(time.slice(0,2))+7)%24 + time.slice(2) + '-07:00';
+        let hours = '' + eval(time.slice(0,2))-1
+        time = '0'.slice(0,hours.length) + hours + time.slice(2) + '-08:00';
         let startBond = form.find('.start-date').val() + 'T' + time;
-        let endBond = form.find('.end-date').val();
+        let endBond = form.find('.end-date').val() + 'T08:00:00-08:00';
 
         let hasURL = form.find('.useURL').prop('checked');
         let pswd = ''; let link;
@@ -22,21 +24,24 @@ $('#save').on('click', () => {
             pswd = ' ' + form.find('.pswd').val();
         }
 
-        // ipcRenderer.send('edit task', {
-        //     'index': i,
-        //     'Enabled': enabled,
-        //     'StartBoundary': startBond,
-        //     'EndBoundary': endBond,
-        //     'Arguments': link + pswd
-        // });
+        // console.log(startBond, endBond, link + pswd);
+        if(!startBond || !endBond || !(link + pswd)) return;
+        console.log('write file', i)
 
-        window.editTask({
+        // constructXMLFile(i-1, $(form));
+        taskInfo.push({
             'index': i,
+            'URI': '/ZoomScheduler/' + i,
             'Enabled': enabled,
             'StartBoundary': startBond,
             'EndBoundary': endBond,
-            'Arguments': link + pswd
+            'Arguments': '"' + link + pswd + '"'
         });
-        // constructXMLFile(i-1, $(form));
     });
+
+
+
+    window.editTasks(taskInfo);
+    console.log('save done');
+    window.installTasks();
 });

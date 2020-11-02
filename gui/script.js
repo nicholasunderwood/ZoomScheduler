@@ -1,8 +1,14 @@
+console.log('load script')
+const ids = ['-enable','-useURL','-useID'];
+const periodNumbers = [0,1,3,5,7,0,2,4,6,7];
+const times = ['07:59','09:14','10:29','12:14','13:29'];
+const term1Dates = ['2020-10-12', '2020-11-14'];
+const term2Dates = ['2020-11-15', '2020-12-19'];
+
+
+
 $(document).ready(() => {
 
-  const ids = ['-enable','-useURL','-useID'];
-  const periodNumbers = [0,1,3,5,7,0,2,4,6,7];
-  const times = ['07:59','09:14','10:29','12:14','13:29'];
 
   for(let i = 1; i < 10; i++){
     let form = $('#p0').clone(true, false);
@@ -12,7 +18,7 @@ $(document).ready(() => {
     });
     form.attr('id','p'+i)
     form.find(`[name=p0-link-type]`).attr('name', `p${i}-link-type`);
-    form.find('period-title').text('Period ' + periodNumbers[i]);
+    form.find('.period-title').text('Period ' + periodNumbers[i]);
     
     $(i > 4 ? '#t2' : '#t1').append(form);
   }
@@ -25,6 +31,12 @@ $(document).ready(() => {
   $('.start-time').each((i, el) => {
     $(el).val(times[i%5])
   });
+
+  $('#t1 .start-date').each((_, input) => { $(input).val(term1Dates[0]) });
+  $('#t1 .end-date').each((_, input) => { $(input).val(term1Dates[1]) });
+  $('#t2 .start-date').each((_, input) => { $(input).val(term2Dates[0]) });
+  $('#t2 .end-date').each((_, input) => { $(input).val(term2Dates[1]) });
+
 
   $('.enable-task').on('change', (e) => {
     form = $(e.currentTarget).parents('form')
@@ -46,6 +58,9 @@ $(document).ready(() => {
     .change();
 
   $('.id-row').hide();
+
+  console.log()
+  $('#p1 .link').val('https://berkeley-net.zoom.us/j/81167547619?pwd=cEpLYXBrUlBNcHhISlEwdHpPUVhBUT09')
 
   $('form').on('submit', (e) => e.preventDefault());
 });
