@@ -1,4 +1,3 @@
-// const { ipcRenderer } = require('electron')
 console.log('load save')
 
 $('#save').on('click', () => {
@@ -51,13 +50,14 @@ $('#save').on('click', () => {
             'EndBoundary': endBond,
             'Arguments': '"' + link + pswd + '"'
         });
+        console.log(taskInfo)
     });
 
-
-    window.editTasks(taskInfo);
+    console.log('taskInfo', taskInfo)
+    ipcRenderer.send('edit tasks', taskInfo)
     console.log('save done');
-    window.installTasks();
+    ipcRenderer.send('install tasks')
     console.log('install done');
-    window.saveUserData(userData);
+    ipcRenderer.send('save data', userData)
 
 });
