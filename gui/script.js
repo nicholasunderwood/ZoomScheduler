@@ -30,7 +30,7 @@ $(document).ready(() => {
   });
   
   $('.enable-task').on('change', (e) => {
-    form = $(e.currentTarget).parents('form')
+    let form = $(e.currentTarget).parents('form')
     let isChecked = e.currentTarget.checked;
     form.find('input:not(.enable-task)').attr('disabled', !isChecked);
     if(isChecked) form.find('.input-wrapper').slideDown();
@@ -38,7 +38,7 @@ $(document).ready(() => {
   });
   
   $('.link-type').on('change', (e) => {
-    form = $(e.currentTarget).parents('form')
+    let form = $(e.currentTarget).parents('form')
     form.find('.id-row').slideToggle();
     form.find('.url-row').slideToggle();
   });
