@@ -8,10 +8,11 @@ const installScript = require.resolve('../install.bat');
 
 function editTasks(tasks) {
   let templateStr = fs.readFileSync('./tasks/template.xml', 'ucs2');
+  let data = ''
 
   tasks.forEach(task => {
     console.log(task);
-    const index = task.index
+    const index = task.index;
     delete task.index
     const doc = parser.parseFromString(templateStr, 'text/xml');
     Object.keys(task).forEach(key => {
@@ -22,6 +23,7 @@ function editTasks(tasks) {
     let docStr = serializer.serializeToString(doc);
     fs.writeFileSync(`tasks/${index}.xml`, docStr, 'ucs2', () => { console.log('done', index); } );
   });
+
 }
 
 function installTasks() {
@@ -40,6 +42,11 @@ function installTasks() {
   });
 }
 
+function saveUserInfo(info) {
+
+}
+
+
 window.addEventListener('DOMContentLoaded', () => {
     const replaceText = (selector, text) => {
     const element = document.getElementById(selector)
@@ -56,3 +63,9 @@ const serializer = new XMLSerializer()
 
 window.editTasks = editTasks
 window.installTasks = installTasks
+
+window.saveUserData = (data) => {
+  console.log(data, JSON.stringify(data));
+  fs.writeFileSync('data.json', JSON.stringify(data), 'utf-8');
+}
+window.getUserData = () => JSON.parse(fs.readFileSync('data.json', 'utf-8'));

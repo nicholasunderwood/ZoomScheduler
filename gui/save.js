@@ -3,14 +3,18 @@ console.log('load save')
 
 $('#save').on('click', () => {
     console.log('save');
-    const taskInfo = []
+    const taskInfo = [];
+    const userData = [];
+
+
     $('.task').each( (i, form) => {
+
         form = $(form);
 
         let enabled = form.find('.enable-task').prop('checked');
         
         let time = form.find('.start-time').val();
-        let hours = '' + eval(time.slice(0,2))-1
+        let hours = '' + eval(time.slice(0,2))
         time = '0'.slice(0,hours.length) + hours + time.slice(2) + '-08:00';
         let startBond = form.find('.start-date').val() + 'T' + time;
         let endBond = form.find('.end-date').val() + 'T08:00:00-08:00';
@@ -20,13 +24,23 @@ $('#save').on('click', () => {
         if(hasURL){
             link = form.find('.link').val();
         } else {
-            link = 'http://berkeley-net.zoom.us/j/' + form.find('.meet-id').val();
+            link = 'http://berkeley-net.zoom.us/j/' + form.find('.meet-id').val().replace(/ /gi,'');
             pswd = ' ' + form.find('.pswd').val();
         }
+        
+        userData.push({
+            'enable-task': enabled,
+            'useURL': hasURL,
+            'link': form.find('.link').val(),
+            'meet-id': form.find('.meet-id').val(),
+            'pswd': form.find('.pswd').val(),
+            'start-time': form.find('.start-time').val(),
+            'start-date': form.find('.start-date').val(),
+            'end-date': form.find('.end-date').val()
+        })
 
-        // console.log(startBond, endBond, link + pswd);
         if(!startBond || !endBond || !(link + pswd)) return;
-        console.log('write file', i)
+        console.log('write file', i);
 
         // constructXMLFile(i-1, $(form));
         taskInfo.push({
@@ -40,8 +54,10 @@ $('#save').on('click', () => {
     });
 
 
-
     window.editTasks(taskInfo);
     console.log('save done');
     window.installTasks();
+    console.log('install done');
+    window.saveUserData(userData);
+
 });
