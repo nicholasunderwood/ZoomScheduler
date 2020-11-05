@@ -16,8 +16,6 @@ $(document).ready(() => {
     form.attr('id','p'+i)
     form.find(`[name=p0-link-type]`).attr('name', `p${i}-link-type`);
     form.find('.period-title').text('Period ' + periodNumbers[i]);
-
- 
     
     $(i > 4 ? '#t2' : '#t1').append(form);
   }
@@ -28,7 +26,7 @@ $(document).ready(() => {
   $('.term-title').on('click', e => {
     $(e.currentTarget).nextAll().slideToggle();
   });
-  
+
   $('.enable-task').on('change', (e) => {
     let form = $(e.currentTarget).parents('form')
     let isChecked = e.currentTarget.checked;
@@ -36,17 +34,16 @@ $(document).ready(() => {
     if(isChecked) form.find('.input-wrapper').slideDown();
     else form.find('.input-wrapper').slideUp();
   });
-  
+
   $('.link-type').on('change', (e) => {
     let form = $(e.currentTarget).parents('form')
     form.find('.id-row').slideToggle();
     form.find('.url-row').slideToggle();
   });
-  
+
   $('.id-row').hide();
 
-
-  const userData = ipcRenderer.send('load data');
+  ipcRenderer.send('load data');
   ipcRenderer.on('userData', (event, userData) => {
 
     console.log('load data', userData)
@@ -66,8 +63,5 @@ $(document).ready(() => {
     $('.enable-task').change();
     $('.link-type').change();
   })
-
-
   $('form').on('submit', (e) => e.preventDefault());
-
 });
