@@ -27,21 +27,7 @@ $(document).ready(() => {
     $(e.currentTarget).nextAll().slideToggle();
   });
 
-  $('.enable-task').on('change', (e) => {
-    let form = $(e.currentTarget).parents('form')
-    let isChecked = e.currentTarget.checked;
-    form.find('input:not(.enable-task)').attr('disabled', !isChecked);
-    if(isChecked) form.find('.input-wrapper').slideDown();
-    else form.find('.input-wrapper').slideUp();
-  });
-
-  $('.link-type').on('change', (e) => {
-    let form = $(e.currentTarget).parents('form')
-    form.find('.id-row').slideToggle();
-    form.find('.url-row').slideToggle();
-  });
-
-  $('.id-row').hide();
+ 
 
   ipcRenderer.send('load data');
   ipcRenderer.on('userData', (event, userData) => {
@@ -49,19 +35,34 @@ $(document).ready(() => {
     console.log('load data', userData)
     
     userData.forEach((taskData, i) => {
-      Object.keys(taskData).forEach(key => {
-        let el = $(`#p${i} .${key}`)
-        if(typeof taskData[key] == 'boolean'){
-          el.prop('checked', taskData[key])
-        } else {
-          el.val(taskData[key])
-        }
-      });
+      $(`#p${i} .enable-task`).prop('checked', taskData['enable-task']);
+      $(`#p${i} .useURL`).prop('checked', taskData['useURL']);
       $(`#p${i} .useID`).prop('checked', !taskData['useURL']);
+      Object.keys(taskData).forEach(key => {
+        if(typeof taskData[key] != 'boolean') return;
+        $(`#p${i} .${key}`).val(taskData[key])
+      });
+      if(!taskData['enable-task']){
+        $(`#p${i} input:not(.enable-task)`).attr('disabled', true);
+        $(`#p${i} .input-wrapper`).hide();
+      }
+      if(taskData['useURL']) $(`#p${i} .id-row`).hide();
+      else $(`#p${i} .url-row`).hide();
     });
   
-    $('.enable-task').change();
-    $('.link-type').change();
+    $('.enable-task').on('change', (e) => {
+      let form = $(e.currentTarget).parents('form')
+      let isChecked = e.currentTarget.checked;
+      form.find('input:not(.enable-task)').attr('disabled', !isChecked);
+      if(isChecked) form.find('.input-wrapper').slideDown();
+      else form.find('.input-wrapper').slideUp();
+    });
+  
+    $('.link-type').on('change', (e) => {
+      let form = $(e.currentTarget).parents('form')
+      form.find('.id-row').slideToggle();
+      form.find('.url-row').slideToggle();
+    });
   })
   $('form').on('submit', (e) => e.preventDefault());
 });

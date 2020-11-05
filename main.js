@@ -55,7 +55,7 @@ function createWindow () {
   mainWindow = new BrowserWindow({
     width: 880,
     height: 640,
-    minWidth: 600,
+    minWidth: 800,
     show: false,
     title: "Zoom Scheduler",
     webPreferences: {
