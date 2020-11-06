@@ -65,11 +65,13 @@ function createWindow () {
   })
 
   mainWindow.once('ready-to-show', () => mainWindow.show());
-  mainWindow.removeMenu();
+  // mainWindow.removeMenu();
   
   mainWindow.loadFile('gui/index.html');
   console.log('load file');
 }
+
+if (require('electron-squirrel-startup')) return app.quit();
 
 app.whenReady().then(() => {
   console.log('ready')
@@ -107,5 +109,7 @@ ipcMain.on('save data', (event, args) => {
 });
 
 ipcMain.on('load data', (event, args) => {
-  event.reply('userData', JSON.parse(fs.readFileSync(__dirname + '/data.json', 'utf-8')))
+  let userData = JSON.parse(fs.readFileSync(__dirname + '\\data.json', 'utf-8'));
+  console.log(__dirname + '\\data.json', userData)
+  event.reply('userData', JSON.parse(fs.readFileSync(__dirname + '\\data.json', 'utf-8')))
 })

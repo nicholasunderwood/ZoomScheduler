@@ -39,7 +39,7 @@ $(document).ready(() => {
       $(`#p${i} .useURL`).prop('checked', taskData['useURL']);
       $(`#p${i} .useID`).prop('checked', !taskData['useURL']);
       Object.keys(taskData).forEach(key => {
-        if(typeof taskData[key] != 'boolean') return;
+        if(typeof taskData[key] == 'boolean') return;
         $(`#p${i} .${key}`).val(taskData[key])
       });
       if(!taskData['enable-task']){

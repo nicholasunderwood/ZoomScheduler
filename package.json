@@ -1,6 +1,6 @@
 {
   "name": "zoom-scheduler",
-  "version": "1.0.0",
+  "version": "0.1.1",
   "description": "A minimal Electron application",
   "main": "./main.js",
   "scripts": {
@@ -9,7 +9,7 @@
     "make": "electron-forge make",
     "publish": "electron-forge publish"
   },
-  "repository": "https://github.com/nicholasunderwood/zo",
+  "repository": "https://github.com/nicholasunderwood/ZoomScheduler",
   "keywords": [
     "Zoom"
   ],
@@ -21,21 +21,22 @@
       "makers": [
         {
           "name": "@electron-forge/maker-squirrel",
-          "config": {
-            "name": "my_app"
-          }
-        },
-        {
-          "name": "@electron-forge/maker-zip",
           "platforms": [
-            "darwin"
-          ]
+            "win32"
+          ],
+          "config": {
+            "authors": "Nicholas Underwood",
+            "name": "zoom_scheduler",
+            "noMSI": false,
+            "setupExe": "winInstaller"
+          }
         }
       ]
     }
   },
   "dependencies": {
     "electron-compile": "^6.4.1",
+    "electron-squirrel-startup": "^1.0.0",
     "fs": "0.0.1-security",
     "xmldom": "^0.4.0"
   },

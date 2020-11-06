@@ -45,46 +45,44 @@ saveButton.on('click', () => {
 
         form = $(form);
 
-        let enabled = form.find('.enable-task').prop('checked');
-        
-        let time = form.find('.start-time').val();
-        let hours = '' + eval(time.slice(0,2))
-        time = '0'.slice(0,hours.length) + hours + time.slice(2) + '-08:00';
-        let startBond = form.find('.start-date').val() + 'T' + time;
-        let endBond = form.find('.end-date').val() + 'T08:00:00-08:00';
-
-        let hasURL = form.find('.useURL').prop('checked');
-        let pswd = ''; let link;
-        if(hasURL){
-            link = form.find('.link').val();
-        } else {
-            link = 'http://berkeley-net.zoom.us/j/' + form.find('.meet-id').val().replace(/ /gi,'');
-            pswd = ' ' + form.find('.pswd').val();
-        }
-        
-        userData.push({
-            'enable-task': enabled,
-            'useURL': hasURL,
+        taskData = {
+            'enable-task': form.find('.enable-task').prop('checked'),
+            'useURL': form.find('.useURL').prop('checked'),
             'link': form.find('.link').val(),
             'meet-id': form.find('.meet-id').val(),
             'pswd': form.find('.pswd').val(),
             'start-time': form.find('.start-time').val(),
             'start-date': form.find('.start-date').val(),
             'end-date': form.find('.end-date').val()
-        })
+        };
+
+        console.log(taskData)
+        userData.push(taskData);
+
+        
+        let hours = eval(taskData['start-time'].slice(0,2))-1 + '';
+        let time = '0'.slice(0,hours.length) + hours + taskData['start-time'].slice(2) + '-08:00';
+        let startBond = taskData['start-date'] + 'T' + time;
+        let endBond = taskData['end-date'] + 'T08:00:00-08:00';
+
+        let pswd = ''; let link;
+        if(taskData['useURL']){
+            link = taskData['link'];
+        } else {
+            link = 'http://berkeley-net.zoom.us/j/' + taskData['meet-id'].replace(/ /gi,'');
+            pswd = ' ' + taskData['pswd'];
+        }
 
         if(!startBond || !endBond || !(link + pswd)) return;
 
-        // constructXMLFile(i-1, $(form));
         taskInfo.push({
             'index': i,
             'URI': '/Zoom/' + i,
-            'Enabled': enabled,
+            'Enabled': taskData['enable-task'],
             'StartBoundary': startBond,
             'EndBoundary': endBond,
-            'Arguments': '"' + link + pswd + '"'
+            'Arguments': '"' + link + '"' + pswd
         });
     });
     ipcRenderer.send('edit tasks', taskInfo);
-
 });
