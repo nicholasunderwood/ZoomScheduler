@@ -1,4 +1,3 @@
-
 var dots = 0;
 var userData, load;
 const saveButton = $('#save')
@@ -83,6 +82,8 @@ saveButton.on('click', () => {
             'EndBoundary': endBond,
             'Arguments': '"' + link + '"' + pswd
         });
+
+        taskData['href'] = link;
     });
     ipcRenderer.send('edit tasks', taskInfo);
 });

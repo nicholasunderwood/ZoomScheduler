@@ -37,6 +37,7 @@ main{
 }
 
 .config { flex: 1 1 auto; }
+
 .launch {
   flex: 0 0 auto;
   margin-left: 15px;
