@@ -32,6 +32,21 @@ main{
 .task {
   margin: 10px;
   min-width: fit-content;
+  display: flex;
+  flex-direction: row;
+}
+
+.config { flex: 1 1 auto; }
+.launch {
+  flex: 0 0 auto;
+  margin-left: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.launch img{
+  width: 18px;
+  height: auto;
 }
 
 .task h6{
@@ -39,8 +54,9 @@ main{
   white-space: nowrap;
   display: flex;
   flex-wrap: nowrap;
-  padding: 5px;
+  padding: 5px 5px 5px 0;
 }
+
 .task h6>span {
   flex: 1 0 auto;
   margin-right: 10px;

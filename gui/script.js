@@ -27,12 +27,8 @@ $(document).ready(() => {
     $(e.currentTarget).nextAll().slideToggle();
   });
 
- 
-
   ipcRenderer.send('load data');
   ipcRenderer.on('userData', (event, userData) => {
-
-    console.log('load data', userData)
     
     userData.forEach((taskData, i) => {
       $(`#p${i} .enable-task`).prop('checked', taskData['enable-task']);
