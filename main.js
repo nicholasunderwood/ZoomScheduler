@@ -115,10 +115,5 @@ ipcMain.on('load data', (event, args) => {
 
 ipcMain.on('launch', (event, args) => {
   console.log(args)
-  let launch = spawn('schtasks', ['/run', '/tn \\Zoom\\'+args], {'shell': true});
-  launch.stdout.on('data', (data) => console.log('data', data));
-  launch.stderr.on('data', (data) => console.log('error', data));
-  launch.on('close', (code) => console.log(`child process exited with code ${code}`));
-  
-  
+  let launch = spawn('schtasks', ['/run', '/tn \\Zoom\\'+args], {'shell': true});  
 });

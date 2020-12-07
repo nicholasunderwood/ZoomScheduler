@@ -30,7 +30,7 @@ main{
 }
 
 .task {
-  margin: 10px;
+  margin: 5px;
   min-width: fit-content;
   display: flex;
   flex-direction: row;
@@ -56,18 +56,18 @@ main{
   display: flex;
   flex-wrap: nowrap;
   padding: 5px 5px 5px 0;
+  margin: 0;
 }
+
 
 .task h6>span {
   flex: 1 0 auto;
   margin-right: 10px;
 }
 
-.task h6>div{
-  flex: 0 0 auto;
+.task .input-wrapper {
+  margin-top: 8px;
 }
-
-
 
 .footer {
   flex: 0 0 auto;
