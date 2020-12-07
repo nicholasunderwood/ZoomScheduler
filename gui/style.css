@@ -48,6 +48,7 @@ main{
 .launch img{
   width: 18px;
   height: auto;
+  filter: invert(1)
 }
 
 .task h6{
